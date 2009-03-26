@@ -23,21 +23,19 @@ end
 -- Include and library search paths, system dependent (I don't assume a directory structure)
 
 package.includepaths = {
--- Edit include directories here. Add Ogre and OIS include directories if you don't use
--- pkg-config
-"./exampleapp/",
-"../include/",
+-- Add Ogre, OIS and bullet include directories if you don't use pkg-config
+"./exampleapp",
+"../include",
 }
 
 package.libpaths = {
--- Edit library directories here. Add Ogre and OIS library directories if you don't use
--- pkg-config
+-- Add Ogre, OIS and bullet library directories if you don't use pkg-config
 }
 
 -- Libraries to link to ---------------------------------------------------------------------
 
 package.links = {
--- Add Ogre and OIS libraries here, if you don't use pkg-config.
+-- Add Ogre, OIS and bullet libraries here, if you don't use pkg-config.
 }
 
 -- pkg-configable stuff ---------------------------------------------------------------------
