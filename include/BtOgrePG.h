@@ -54,12 +54,12 @@ class RigidBodyState : public btMotionState
             ret = mCenterOfMassOffset.inverse() * mTransform;
         }
 
-        virtual void setWorldTransform(const btTransform &transform) 
+        virtual void setWorldTransform(const btTransform &in) 
         {
             if (mNode == NULL)
                 return;
 
-            transform = transform * mCenterOfMassOffset;
+            btTransform transform = in * mCenterOfMassOffset;
 
             btQuaternion rot = transform.getRotation();
             btVector3 pos = transform.getOrigin();
