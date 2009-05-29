@@ -59,6 +59,7 @@ class RigidBodyState : public btMotionState
             if (mNode == NULL)
                 return;
 
+            mTransform = in;
             btTransform transform = in * mCenterOfMassOffset;
 
             btQuaternion rot = transform.getRotation();
