@@ -196,6 +196,7 @@ public:
 		mLineDrawer = new DynamicLines(Ogre::RenderOperation::OT_LINE_LIST);
 		mNode->attachObject(mLineDrawer);
 
+                Ogre::ResourceGroupManager::getSingleton().createResourceGroup("BtOgre");
 		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create("BtOgre/DebugLines", "BtOgre");
 		mat->setReceiveShadows(false);
 		mat->setSelfIllumination(1,1,1);
