@@ -35,17 +35,17 @@ class RigidBodyState : public btMotionState
 
     public:
         RigidBodyState(Ogre::SceneNode *node, const btTransform &transform, const btTransform &offset = btTransform::getIdentity())
-            : mNode(node),
-              mTransform(transform),
-              mCenterOfMassOffset(offset)
+            : mTransform(transform),
+              mCenterOfMassOffset(offset),
+              mNode(node)
         {
         }
 
         RigidBodyState(Ogre::SceneNode *node)
-            : mNode(node),
-              mTransform(((node != NULL) ? BtOgre::Convert::toBullet(node->getOrientation()) : btQuaternion(0,0,0,1)), 
+            : mTransform(((node != NULL) ? BtOgre::Convert::toBullet(node->getOrientation()) : btQuaternion(0,0,0,1)), 
                          ((node != NULL) ? BtOgre::Convert::toBullet(node->getPosition())    : btVector3(0,0,0))),
-              mCenterOfMassOffset(btTransform::getIdentity())
+              mCenterOfMassOffset(btTransform::getIdentity()),
+              mNode(node)
         {
         }
 
