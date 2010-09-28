@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  BtOgreShapes.h
+ *       Filename:  BtOgreExtras.h
  *
  *    Description:  Contains the Ogre Mesh to Bullet Shape converters.
  *
@@ -198,9 +198,12 @@ public:
 
                 if (!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("BtOgre"))
                     Ogre::ResourceGroupManager::getSingleton().createResourceGroup("BtOgre");
-		Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create("BtOgre/DebugLines", "BtOgre");
-		mat->setReceiveShadows(false);
-		mat->setSelfIllumination(1,1,1);
+                if (!Ogre::MaterialManager::getSingleton().resourceExists("BtOgre/DebugLines"))
+                {
+                    Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create("BtOgre/DebugLines", "BtOgre");
+                    mat->setReceiveShadows(false);
+                    mat->setSelfIllumination(1,1,1);
+                }
 
 		mLineDrawer->setMaterial("BtOgre/DebugLines");
 	}
