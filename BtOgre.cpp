@@ -270,6 +270,8 @@ namespace BtOgre {
 			("Sphere radius must be greater than zero"));
 		btSphereShape* shape = new btSphereShape(rad);
 
+		shape->setLocalScaling(Convert::toBullet(mScale));
+
 		return shape;
 	}
 	//------------------------------------------------------------------------------------------------
@@ -281,6 +283,9 @@ namespace BtOgre {
 			("Size of box must be greater than zero on all axes"));
 
 		btBoxShape* shape = new btBoxShape(Convert::toBullet(sz * 0.5));
+
+		shape->setLocalScaling(Convert::toBullet(mScale));
+
 		return shape;
 	}
 	//------------------------------------------------------------------------------------------------
@@ -292,6 +297,9 @@ namespace BtOgre {
 			("Size of Cylinder must be greater than zero on all axes"));
 
 		btCylinderShape* shape = new btCylinderShapeX(Convert::toBullet(sz * 0.5));
+
+		shape->setLocalScaling(Convert::toBullet(mScale));		
+
 		return shape;
 	}
 	//------------------------------------------------------------------------------------------------
@@ -372,7 +380,8 @@ namespace BtOgre {
 		mBounds (Vector3(-1,-1,-1)),
 		mBoundRadius (-1),
 		mBoneIndex (0),
-		mTransform (transform)
+		mTransform (transform),
+		mScale(1)
 	{	
 	}
 
@@ -424,6 +433,7 @@ namespace BtOgre {
 		mEntity = entity;
 		mNode = (SceneNode*)(mEntity->getParentNode());
 		mTransform = transform;
+		mScale = mNode->getScale();
 
 		if (mEntity->getMesh()->sharedVertexData)
 		{

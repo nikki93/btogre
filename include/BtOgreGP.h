@@ -70,6 +70,8 @@ protected:
 	Ogre::Vector3		mBounds;
 
 	BoneIndex           *mBoneIndex;
+
+	Ogre::Vector3		mScale;
 };
 
 //For static (non-animated) meshes.
