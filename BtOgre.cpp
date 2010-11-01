@@ -269,7 +269,7 @@ namespace BtOgre {
 		assert((rad > 0.0) && 
 			("Sphere radius must be greater than zero"));
 		btSphereShape* shape = new btSphereShape(rad);
-
+		  
 		shape->setLocalScaling(Convert::toBullet(mScale));
 
 		return shape;
@@ -351,6 +351,8 @@ namespace BtOgre {
 
 		const bool useQuantizedAABB = true;
 		btBvhTriangleMeshShape *shape = new btBvhTriangleMeshShape(trimesh, useQuantizedAABB);
+
+	        shape->setLocalScaling(Convert::toBullet(mScale));
 
 		return shape;
 	}
@@ -1039,5 +1041,4 @@ namespace BtOgre {
 
 	  mDirty = false;
 	}
-
 } 
