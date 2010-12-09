@@ -435,7 +435,7 @@ namespace BtOgre {
 		mEntity = entity;
 		mNode = (SceneNode*)(mEntity->getParentNode());
 		mTransform = transform;
-		mScale = mNode->getScale();
+		mScale = mNode ? mNode->getScale() : Ogre::Vector3(1,1,1);
 
 		if (mEntity->getMesh()->sharedVertexData)
 		{
