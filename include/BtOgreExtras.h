@@ -151,11 +151,11 @@ public:
   /// Remove all points from the point list
   void clear();
 
-  /// Call this to update the hardware buffer after making changes.  
+  /// Call this to update the hardware buffer after making changes.
   void update();
 
   /** Set the type of operation to draw with.
-   * @param opType Can be one of 
+   * @param opType Can be one of
    *    - RenderOperation::OT_LINE_STRIP
    *    - RenderOperation::OT_LINE_LIST
    *    - RenderOperation::OT_POINT_LIST
@@ -188,7 +188,7 @@ protected:
 
 public:
 
-	DebugDrawer(Ogre::SceneNode *node, btDynamicsWorld *world) 
+	DebugDrawer(Ogre::SceneNode *node, btDynamicsWorld *world)
 		: mNode(node),
 		  mWorld(world),
 		  mDebugOn(true)
@@ -208,7 +208,7 @@ public:
 		mLineDrawer->setMaterial("BtOgre/DebugLines");
 	}
 
-	~DebugDrawer() 
+	~DebugDrawer()
 	{
                 Ogre::MaterialManager::getSingleton().remove("BtOgre/DebugLines");
                 Ogre::ResourceGroupManager::getSingleton().destroyResourceGroup("BtOgre");
@@ -252,18 +252,18 @@ public:
 	void draw3dText(const btVector3& location,const char* textString)
 	{
 	}
-	
+
 	//0 for off, anything else for on.
-	void setDebugMode(int isOn) 
+	void setDebugMode(int isOn)
 	{
 		mDebugOn = (isOn == 0) ? false : true;
 
 		if (!mDebugOn)
 			mLineDrawer->clear();
 	}
-	
+
 	//0 for off, anything else for on.
-	int	getDebugMode() const 
+	int	getDebugMode() const
 	{
 		return mDebugOn;
 	}

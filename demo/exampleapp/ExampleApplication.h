@@ -113,8 +113,8 @@ protected:
 #ifndef OGRE_STATIC_LIB
 		pluginsPath = mResourcePath + "plugins.cfg";
 #endif
-		
-        mRoot = OGRE_NEW Root(pluginsPath, 
+
+        mRoot = OGRE_NEW Root(pluginsPath,
             mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
 
         setupResources();
