@@ -64,12 +64,12 @@ protected:
 	unsigned int        mVertexCount;
 	unsigned int        mIndexCount;
 
-	Ogre::Matrix4		mTransform;
-
-	Ogre::Real		    mBoundRadius;
 	Ogre::Vector3		mBounds;
+	Ogre::Real		    mBoundRadius;
 
 	BoneIndex           *mBoneIndex;
+
+	Ogre::Matrix4		mTransform;
 
 	Ogre::Vector3		mScale;
 };
