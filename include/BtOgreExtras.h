@@ -17,6 +17,7 @@
 #define _BtOgreShapes_H_
 
 #include "btBulletDynamicsCommon.h"
+#include "OgreSceneNode.h"
 #include "OgreSimpleRenderable.h"
 #include "OgreCamera.h"
 #include "OgreHardwareBufferManager.h"
