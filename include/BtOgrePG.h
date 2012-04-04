@@ -51,7 +51,7 @@ class RigidBodyState : public btMotionState
 
         virtual void getWorldTransform(btTransform &ret) const
         {
-            ret = mCenterOfMassOffset.inverse() * mTransform;
+            ret = mTransform;
         }
 
         virtual void setWorldTransform(const btTransform &in)

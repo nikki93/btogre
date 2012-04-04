@@ -1,0 +1,7 @@
+demo/BtOgreTest.make
+demo/Makefile
+*.cfg
+*.log
+demo/bin/release/BtOgreTest
+demo/bin/debug/BtOgreTest_d
+demo/obj
