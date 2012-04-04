@@ -29,7 +29,7 @@ namespace BtOgre {
 
 	void VertexIndexToShape::addStaticVertexData(const VertexData *vertex_data)
 	{
-		if (!vertex_data) 
+		if (!vertex_data)
 			return;
 
 		const VertexData *data = vertex_data;
@@ -46,8 +46,8 @@ namespace BtOgre {
 		mVertexBuffer = tmp_vert;
 
 		// Get the positional buffer element
-		{	
-			const Ogre::VertexElement* posElem = data->vertexDeclaration->findElementBySemantic(Ogre::VES_POSITION);			
+		{
+			const Ogre::VertexElement* posElem = data->vertexDeclaration->findElementBySemantic(Ogre::VES_POSITION);
 			Ogre::HardwareVertexBufferSharedPtr vbuf = data->vertexBufferBinding->getBuffer(posElem->getSource());
 			const unsigned int vSize = (unsigned int)vbuf->getVertexSize();
 
@@ -65,7 +65,7 @@ namespace BtOgre {
 				curVertices->z = (*pReal++);
 
 				*curVertices = mTransform * (*curVertices);
-	            
+
 				curVertices++;
 			}
 			vbuf->unlock();
@@ -75,7 +75,7 @@ namespace BtOgre {
 	void VertexIndexToShape::addAnimatedVertexData(const Ogre::VertexData *vertex_data,
 												   const Ogre::VertexData *blend_data,
 												   const Ogre::Mesh::IndexMap *indexMap)
-	{	
+	{
 		// Get the bone index element
 		assert(vertex_data);
 
@@ -91,8 +91,8 @@ namespace BtOgre {
 		mVertexBuffer = tmp_vert;
 
 		// Get the positional buffer element
-		{	
-			const Ogre::VertexElement* posElem = data->vertexDeclaration->findElementBySemantic(Ogre::VES_POSITION);	
+		{
+			const Ogre::VertexElement* posElem = data->vertexDeclaration->findElementBySemantic(Ogre::VES_POSITION);
 			assert (posElem);
 			Ogre::HardwareVertexBufferSharedPtr vbuf = data->vertexBufferBinding->getBuffer(posElem->getSource());
 			const unsigned int vSize = (unsigned int)vbuf->getVertexSize();
@@ -119,7 +119,7 @@ namespace BtOgre {
 		{
 			const Ogre::VertexElement* bneElem = vertex_data->vertexDeclaration->findElementBySemantic(Ogre::VES_BLEND_INDICES);
 			assert (bneElem);
-			
+
 			Ogre::HardwareVertexBufferSharedPtr vbuf = vertex_data->vertexBufferBinding->getBuffer(bneElem->getSource());
 			const unsigned int vSize = (unsigned int)vbuf->getVertexSize();
 			unsigned char* vertex = static_cast<unsigned char*>(vbuf->lock(Ogre::HardwareBuffer::HBL_READ_ONLY));
@@ -127,7 +127,7 @@ namespace BtOgre {
 			unsigned char* pBone;
 
 			if (!mBoneIndex)
-				mBoneIndex = new BoneIndex();	
+				mBoneIndex = new BoneIndex();
 			BoneIndex::iterator i;
 
 			Ogre::Vector3 * curVertices = &mVertexBuffer[prev_size];
@@ -145,8 +145,8 @@ namespace BtOgre {
 				{
 					l = new Vector3Array;
 					mBoneIndex->insert(BoneKeyIndex(currBone, l));
-				}						
-				else 
+				}
+				else
 				{
 					l = i->second;
 				}
@@ -155,7 +155,7 @@ namespace BtOgre {
 
 				curVertices++;
 			}
-			vbuf->unlock();	
+			vbuf->unlock();
 		}
 	}
 	//------------------------------------------------------------------------------------------------
@@ -173,11 +173,11 @@ namespace BtOgre {
 		mIndexBuffer = tmp_ind;
 
 		const unsigned int numTris = (unsigned int) data->indexCount / 3;
-		HardwareIndexBufferSharedPtr ibuf = data->indexBuffer;	
+		HardwareIndexBufferSharedPtr ibuf = data->indexBuffer;
 		const bool use32bitindexes = (ibuf->getType() == HardwareIndexBuffer::IT_32BIT);
 		unsigned int index_offset = prev_size;
 
-		if (use32bitindexes) 
+		if (use32bitindexes)
 		{
 			const unsigned int* pInt = static_cast<unsigned int*>(ibuf->lock(HardwareBuffer::HBL_READ_ONLY));
 			for(unsigned int k = 0; k < numTris; ++k)
@@ -188,7 +188,7 @@ namespace BtOgre {
 			}
 			ibuf->unlock();
 		}
-		else 
+		else
 		{
 			const unsigned short* pShort = static_cast<unsigned short*>(ibuf->lock(HardwareBuffer::HBL_READ_ONLY));
 			for(unsigned int k = 0; k < numTris; ++k)
@@ -266,10 +266,10 @@ namespace BtOgre {
 	btSphereShape* VertexIndexToShape::createSphere()
 	{
 		const Ogre::Real rad = getRadius();
-		assert((rad > 0.0) && 
+		assert((rad > 0.0) &&
 			("Sphere radius must be greater than zero"));
 		btSphereShape* shape = new btSphereShape(rad);
-		  
+
 		shape->setLocalScaling(Convert::toBullet(mScale));
 
 		return shape;
@@ -279,7 +279,7 @@ namespace BtOgre {
 	{
 		const Ogre::Vector3 sz = getSize();
 
-		assert((sz.x > 0.0) && (sz.y > 0.0) && (sz.z > 0.0) && 
+		assert((sz.x > 0.0) && (sz.y > 0.0) && (sz.z > 0.0) &&
 			("Size of box must be greater than zero on all axes"));
 
 		btBoxShape* shape = new btBoxShape(Convert::toBullet(sz * 0.5));
@@ -293,19 +293,19 @@ namespace BtOgre {
 	{
 		const Ogre::Vector3 sz = getSize();
 
-		assert((sz.x > 0.0) && (sz.y > 0.0) && (sz.z > 0.0) && 
+		assert((sz.x > 0.0) && (sz.y > 0.0) && (sz.z > 0.0) &&
 			("Size of Cylinder must be greater than zero on all axes"));
 
 		btCylinderShape* shape = new btCylinderShapeX(Convert::toBullet(sz * 0.5));
 
-		shape->setLocalScaling(Convert::toBullet(mScale));		
+		shape->setLocalScaling(Convert::toBullet(mScale));
 
 		return shape;
 	}
 	//------------------------------------------------------------------------------------------------
 	btConvexHullShape* VertexIndexToShape::createConvex()
 	{
-		assert(mVertexCount && (mIndexCount >= 6) && 
+		assert(mVertexCount && (mIndexCount >= 6) &&
 			("Mesh must have some vertices and at least 6 indices (2 triangles)"));
 
 		return new btConvexHullShape((btScalar*) &mVertexBuffer[0].x, mVertexCount, sizeof(Vector3));
@@ -313,7 +313,7 @@ namespace BtOgre {
 	//------------------------------------------------------------------------------------------------
 	btBvhTriangleMeshShape* VertexIndexToShape::createTrimesh()
 	{
-		assert(mVertexCount && (mIndexCount >= 6) && 
+		assert(mVertexCount && (mIndexCount >= 6) &&
 			("Mesh must have some vertices and at least 6 indices (2 triangles)"));
 
 		unsigned int numFaces = mIndexCount / 3;
@@ -384,7 +384,7 @@ namespace BtOgre {
 		mBoneIndex (0),
 		mTransform (transform),
 		mScale(1)
-	{	
+	{
 	}
 
 /*
@@ -409,7 +409,7 @@ namespace BtOgre {
 		mEntity (0),
 		mNode (0)
 	{
-		addEntity(entity, transform);	
+		addEntity(entity, transform);
 	}
 	//------------------------------------------------------------------------------------------------
 	StaticMeshToShapeConverter::StaticMeshToShapeConverter(Renderable *rend, const Matrix4 &transform) :
@@ -451,7 +451,7 @@ namespace BtOgre {
 				VertexIndexToShape::addIndexData(sub_mesh->indexData, mVertexCount);
 				VertexIndexToShape::addStaticVertexData (sub_mesh->vertexData);
 			}
-			else 
+			else
 			{
 				VertexIndexToShape::addIndexData (sub_mesh->indexData);
 			}
@@ -487,7 +487,7 @@ namespace BtOgre {
 				VertexIndexToShape::addIndexData(sub_mesh->indexData, mVertexCount);
 				VertexIndexToShape::addStaticVertexData (sub_mesh->vertexData);
 			}
-			else 
+			else
 			{
 				VertexIndexToShape::addIndexData (sub_mesh->indexData);
 			}
@@ -508,7 +508,7 @@ namespace BtOgre {
 	mTransformedVerticesTemp(0),
 	mTransformedVerticesTempSize(0)
 	{
-		addEntity(entity, transform);	
+		addEntity(entity, transform);
 	}
 	//------------------------------------------------------------------------------------------------
 	AnimatedMeshToShapeConverter::AnimatedMeshToShapeConverter() :
@@ -543,9 +543,9 @@ namespace BtOgre {
 
 		if (mEntity->getMesh()->sharedVertexData)
 		{
-			VertexIndexToShape::addAnimatedVertexData (mEntity->getMesh()->sharedVertexData, 
+			VertexIndexToShape::addAnimatedVertexData (mEntity->getMesh()->sharedVertexData,
 				mEntity->_getSkelAnimVertexData(),
-				&mEntity->getMesh()->sharedBlendIndexToBoneIndexMap); 
+				&mEntity->getMesh()->sharedBlendIndexToBoneIndexMap);
 		}
 
 		for (unsigned int i = 0;i < mEntity->getNumSubEntities();++i)
@@ -556,11 +556,11 @@ namespace BtOgre {
 			{
 				VertexIndexToShape::addIndexData(sub_mesh->indexData, mVertexCount);
 
-				VertexIndexToShape::addAnimatedVertexData (sub_mesh->vertexData, 
+				VertexIndexToShape::addAnimatedVertexData (sub_mesh->vertexData,
 					mEntity->getSubEntity(i)->_getSkelAnimVertexData(),
-					&sub_mesh->blendIndexToBoneIndexMap); 
+					&sub_mesh->blendIndexToBoneIndexMap);
 			}
-			else 
+			else
 			{
 				VertexIndexToShape::addIndexData (sub_mesh->indexData);
 			}
@@ -585,9 +585,9 @@ namespace BtOgre {
 
 		if (mesh->sharedVertexData)
 		{
-			VertexIndexToShape::addAnimatedVertexData (mesh->sharedVertexData, 
+			VertexIndexToShape::addAnimatedVertexData (mesh->sharedVertexData,
 				0,
-				&mesh->sharedBlendIndexToBoneIndexMap); 
+				&mesh->sharedBlendIndexToBoneIndexMap);
 		}
 
 		for(unsigned int i = 0;i < mesh->getNumSubMeshes();++i)
@@ -598,11 +598,11 @@ namespace BtOgre {
 			{
 				VertexIndexToShape::addIndexData(sub_mesh->indexData, mVertexCount);
 
-				VertexIndexToShape::addAnimatedVertexData (sub_mesh->vertexData, 
+				VertexIndexToShape::addAnimatedVertexData (sub_mesh->vertexData,
 					0,
-					&sub_mesh->blendIndexToBoneIndexMap); 
+					&sub_mesh->blendIndexToBoneIndexMap);
 			}
-			else 
+			else
 			{
 				VertexIndexToShape::addIndexData (sub_mesh->indexData);
 			}
@@ -610,22 +610,22 @@ namespace BtOgre {
 		}
 	}
 	//------------------------------------------------------------------------------------------------
-	bool AnimatedMeshToShapeConverter::getBoneVertices(unsigned char bone, 
-														 unsigned int &vertex_count, 
+	bool AnimatedMeshToShapeConverter::getBoneVertices(unsigned char bone,
+														 unsigned int &vertex_count,
 														 Ogre::Vector3* &vertices,
 														 const Vector3 &bonePosition)
 	{
 		BoneIndex::iterator i = mBoneIndex->find(bone);
 
-		if (i == mBoneIndex->end()) 
+		if (i == mBoneIndex->end())
 			return false;
 
-		if (i->second->empty()) 
+		if (i->second->empty())
 			return false;
 
 		vertex_count = (unsigned int) i->second->size() + 1;
 		if (vertex_count > mTransformedVerticesTempSize)
-		{	
+		{
 			if (mTransformedVerticesTemp)
 				delete[] mTransformedVerticesTemp;
 
@@ -635,7 +635,7 @@ namespace BtOgre {
 
 		vertices = mTransformedVerticesTemp;
 		vertices[0] = bonePosition;
-		//mEntity->_getParentNodeFullTransform() * 
+		//mEntity->_getParentNodeFullTransform() *
 		//	mEntity->getSkeleton()->getBone(bone)->_getDerivedPosition();
 
 		//mEntity->getSkeleton()->getBone(bone)->_getDerivedOrientation()
@@ -645,19 +645,19 @@ namespace BtOgre {
 		{
 			vertices[currBoneVertex] = (*j);
 			++j;
-			++currBoneVertex; 
-		}       
+			++currBoneVertex;
+		}
 		return true;
 	}
 	//------------------------------------------------------------------------------------------------
-	btBoxShape* AnimatedMeshToShapeConverter::createAlignedBox(unsigned char bone, 
+	btBoxShape* AnimatedMeshToShapeConverter::createAlignedBox(unsigned char bone,
 															   const Vector3 &bonePosition,
 															   const Quaternion &boneOrientation)
 	{
 		unsigned int vertex_count;
 		Vector3* vertices;
 
-		if (!getBoneVertices(bone, vertex_count, vertices, bonePosition)) 
+		if (!getBoneVertices(bone, vertex_count, vertices, bonePosition))
 			return 0;
 
 		Vector3 min_vec(vertices[0]);
@@ -686,7 +686,7 @@ namespace BtOgre {
 		return box;
 	}
 	//------------------------------------------------------------------------------------------------
-	bool AnimatedMeshToShapeConverter::getOrientedBox(unsigned char bone, 
+	bool AnimatedMeshToShapeConverter::getOrientedBox(unsigned char bone,
 						 const Vector3 &bonePosition,
 						 const Quaternion &boneOrientation,
 						 Vector3 &box_afExtent,
@@ -760,7 +760,7 @@ namespace BtOgre {
 		return true;
 	}
 	//------------------------------------------------------------------------------------------------
-	btBoxShape *AnimatedMeshToShapeConverter::createOrientedBox(unsigned char bone, 
+	btBoxShape *AnimatedMeshToShapeConverter::createOrientedBox(unsigned char bone,
 																	   const Vector3 &bonePosition,
 																	   const Quaternion &boneOrientation)
 	{
@@ -777,7 +777,7 @@ namespace BtOgre {
 		btBoxShape *geom = new btBoxShape(Convert::toBullet(box_afExtent));
 		//geom->setOrientation(Quaternion(box_akAxis[0],box_akAxis[1],box_akAxis[2]));
 		//geom->setPosition(box_afCenter);
-		return geom; 
+		return geom;
 	}
 
 /*
@@ -814,7 +814,7 @@ namespace BtOgre {
 	  createVertexDeclaration();
 	}
 	//------------------------------------------------------------------------------------------------
-	void DynamicRenderable::prepareHardwareBuffers(size_t vertexCount, 
+	void DynamicRenderable::prepareHardwareBuffers(size_t vertexCount,
 												   size_t indexCount)
 	{
 	  // Prepare vertex buffer
@@ -838,7 +838,7 @@ namespace BtOgre {
 		while (vertexCount < newVertCapacity>>1)
 		  newVertCapacity >>= 1;
 	  }
-	  if (newVertCapacity != mVertexBufferCapacity) 
+	  if (newVertCapacity != mVertexBufferCapacity)
 	  {
 		mVertexBufferCapacity = newVertCapacity;
 		// Create new vertex buffer
@@ -875,7 +875,7 @@ namespace BtOgre {
 			newIndexCapacity <<= 1;
 
 		}
-		else if (indexCount < newIndexCapacity>>1) 
+		else if (indexCount < newIndexCapacity>>1)
 		{
 		  // Make capacity the previous power of two
 		  while (indexCount < newIndexCapacity>>1)
@@ -1000,12 +1000,12 @@ namespace BtOgre {
 
 	  prepareHardwareBuffers(size,0);
 
-	  if (!size) { 
+	  if (!size) {
 		mBox.setExtents(Vector3::ZERO,Vector3::ZERO);
 		mDirty=false;
 		return;
 	  }
-	  
+
 	  Vector3 vaabMin = mPoints[0];
 	  Vector3 vaabMax = mPoints[0];
 
@@ -1041,4 +1041,4 @@ namespace BtOgre {
 
 	  mDirty = false;
 	}
-} 
+}
