@@ -101,6 +101,9 @@ class BtOgreTestApplication : public ExampleApplication
 
 	~BtOgreTestApplication()
 	{
+            delete Globals::dbgdraw;
+            delete Globals::phyWorld;
+
 	    //Free Bullet stuff.
 	    delete mSolver;
 	    delete mDispatcher;
