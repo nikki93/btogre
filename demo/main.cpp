@@ -84,7 +84,7 @@ class BtOgreTestApplication : public ExampleApplication
 
 	Ogre::Entity *mGroundEntity;
 	btRigidBody *mGroundBody;
-	btCollisionShape *mGroundShape;
+	btBvhTriangleMeshShape *mGroundShape;
 
     public:
 	BtOgreTestApplication()
@@ -101,10 +101,22 @@ class BtOgreTestApplication : public ExampleApplication
 
 	~BtOgreTestApplication()
 	{
+            //Free rigid bodies
+            Globals::phyWorld->removeRigidBody(mNinjaBody);
+            delete mNinjaBody->getMotionState();
+            delete mNinjaBody;
+            delete mNinjaShape;
+
+            Globals::phyWorld->removeRigidBody(mGroundBody);
+            delete mGroundBody->getMotionState();
+            delete mGroundBody;
+            delete mGroundShape->getMeshInterface();
+            delete mGroundShape;
+
+	    //Free Bullet stuff.
             delete Globals::dbgdraw;
             delete Globals::phyWorld;
 
-	    //Free Bullet stuff.
 	    delete mSolver;
 	    delete mDispatcher;
 	    delete mCollisionConfig;
