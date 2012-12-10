@@ -308,7 +308,11 @@ namespace BtOgre {
 		assert(mVertexCount && (mIndexCount >= 6) &&
 			("Mesh must have some vertices and at least 6 indices (2 triangles)"));
 
-		return new btConvexHullShape((btScalar*) &mVertexBuffer[0].x, mVertexCount, sizeof(Vector3));
+		btConvexHullShape* shape = new btConvexHullShape((btScalar*) &mVertexBuffer[0].x, mVertexCount, sizeof(Vector3));
+
+		shape->setLocalScaling(Convert::toBullet(mScale));
+
+		return shape;
 	}
 	//------------------------------------------------------------------------------------------------
 	btBvhTriangleMeshShape* VertexIndexToShape::createTrimesh()
