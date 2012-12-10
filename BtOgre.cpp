@@ -308,7 +308,11 @@ namespace BtOgre {
 		assert(mVertexCount && (mIndexCount >= 6) &&
 			("Mesh must have some vertices and at least 6 indices (2 triangles)"));
 
-		return new btConvexHullShape((btScalar*) &mVertexBuffer[0].x, mVertexCount, sizeof(Vector3));
+		btConvexHullShape* shape = new btConvexHullShape((btScalar*) &mVertexBuffer[0].x, mVertexCount, sizeof(Vector3));
+
+		shape->setLocalScaling(Convert::toBullet(mScale));
+
+		return shape;
 	}
 	//------------------------------------------------------------------------------------------------
 	btBvhTriangleMeshShape* VertexIndexToShape::createTrimesh()
@@ -353,6 +357,33 @@ namespace BtOgre {
 		btBvhTriangleMeshShape *shape = new btBvhTriangleMeshShape(trimesh, useQuantizedAABB);
 
 	        shape->setLocalScaling(Convert::toBullet(mScale));
+
+		return shape;
+	}
+	//------------------------------------------------------------------------------------------------
+	btCapsuleShape* VertexIndexToShape::createCapsule() {
+		const Ogre::Vector3 sz = getSize();
+
+		assert((sz.x > 0.0) && (sz.y > 0.0) && (sz.z > 0.0) &&
+			("Size of the capsule must be greater than zero on all axes"));
+
+		btScalar height = std::max(sz.x,std::max(sz.y,sz.z));
+		btScalar radius;
+		btCapsuleShape* shape;
+		// Orient the capsule such that its axiz is aligned with the largest dimension.
+		if (height == sz.y)
+		{
+			radius = std::max(sz.x,sz.z);
+			shape = new btCapsuleShape(radius *0.5,height *0.5);
+		} else if (height == sz.x ) {
+			radius = std::max(sz.y,sz.z);
+			shape = new btCapsuleShapeX(radius *0.5,height *0.5);
+		} else {
+			radius = std::max(sz.x,sz.y);
+			shape = new btCapsuleShapeZ(radius *0.5,height *0.5);
+		}
+
+		shape->setLocalScaling(Convert::toBullet(mScale));
 
 		return shape;
 	}
