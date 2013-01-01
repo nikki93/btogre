@@ -41,6 +41,7 @@ public:
 	btBvhTriangleMeshShape* createTrimesh();
 	btCylinderShape* createCylinder();
 	btConvexHullShape* createConvex();
+	btCapsuleShape* createCapsule();
 
 	const Ogre::Vector3* getVertices();
 	unsigned int getVertexCount();
